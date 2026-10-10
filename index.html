@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Peta Kondisi IPNU-IPPNU Kota Blitar</title>
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     HTML: KERANGKA HALAMAN (isi diisi oleh JavaScript)
+     ===================================================== -->
+<div class="hero">
+  <div class="w">
+    <span class="tag">PIMPINAN CABANG KOTA BLITAR</span>
+    <h1>Peta Kondisi IPNU-IPPNU</h1>
+    <p>Pantau kondisi PAC, PR dan PK di setiap kecamatan — klik peta untuk melihat detail.</p>
+  </div>
+</div>
+
+<div class="w up">
+
+  <!-- Kartu statistik ringkas -->
+  <div class="grid stats" id="stats"></div>
+
+  <!-- Tabel total pimpinan cabang -->
+  <div class="card" style="margin-top:12px">
+    <h2>📊 Total Pimpinan Cabang</h2>
+    <div class="tw"><table id="sum"></table></div>
+  </div>
+
+  <!-- Tiga grafik ringkas -->
+  <div class="grid cols">
+    <div class="card"><h2>🍩 Kondisi Seluruh Pimpinan</h2><div class="donut" id="donut"></div></div>
+    <div class="card"><h2>🆚 PR vs PK</h2><div id="prpk"></div></div>
+    <div class="card"><h2>🏘️ Kondisi per PAC</h2><div id="perpac"></div></div>
+  </div>
+
+  <!-- Peta + detail -->
+  <div class="grid main">
+    <div class="card">
+      <h2>📍 Peta Sebaran Pimpinan</h2>
+      <svg viewBox="0 0 557 715" id="map" role="img" aria-label="Peta Kota Blitar"></svg>
+      <div id="tip">👆 Klik kecamatan atau titik untuk detail</div>
+      <div class="mlegend">
+        <span>● PR (lingkaran)</span>
+        <span style="color:var(--pk)">■ PK (kotak ungu)</span>
+        <span><span class="dot" style="background:#10b981"></span>Aktif</span>
+        <span><span class="dot" style="background:#f59e0b"></span>SP Habis</span>
+        <span><span class="dot" style="background:#ef4444"></span>Vakum</span>
+      </div>
+    </div>
+
+    <div class="card" id="detail">
+      <div class="empty"><big>🗺️</big>Pilih kecamatan pada peta<br>untuk melihat kondisi PR, PK &amp; usia.</div>
+    </div>
+  </div>
+
+  <!-- Statistik usia -->
+  <div class="card" style="margin:12px 0 20px">
+    <h2>🎂 Statistik Usia Pimpinan</h2>
+    <div class="grid stats" id="ak" style="margin-bottom:14px"></div>
+
+    <div class="grid cols" style="grid-template-columns:repeat(auto-fit,minmax(340px,1fr))">
+      <div>
+        <h3>Rentang usia tiap pimpinan (tahun)</h3>
+        <div class="ag" id="age" style="margin-top:8px"></div>
+        <div class="mlegend" style="justify-content:flex-start;margin-top:10px">
+          <span><span class="dot" style="background:#2563eb"></span>IPNU</span>
+          <span><span class="dot" style="background:#db2777"></span>IPPNU</span>
+        </div>
+      </div>
+      <div>
+        <h3>Persentase pimpinan yang mencakup tiap usia</h3>
+        <div id="ah" style="margin-top:8px"></div>
+      </div>
+    </div>
+
+    <div class="grid cols" style="grid-template-columns:repeat(auto-fit,minmax(340px,1fr));margin-top:16px">
+      <div>
+        <h3>Ringkasan per tingkat</h3>
+        <div class="tw" style="margin-top:8px"><table id="at"></table></div>
+      </div>
+      <div>
+        <h3>Sebaran menurut kelompok usia</h3>
+        <div class="donut" id="ad" style="margin-top:8px"></div>
+      </div>
+    </div>
+
+    <p class="sub" style="margin:12px 0 0">Catatan: data usia saat ini masih satu rentang untuk IPNU dan IPPNU, jadi keduanya sama.</p>
+  </div>
+
+  <!-- Data pengkaderan -->
+  <div class="card" style="margin:0 0 20px">
+    <h2>🎓 Data Pengkaderan</h2>
+    <div class="tw"><table id="kt"></table></div>
+    <div class="grid cols" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin-top:12px">
+      <div><div class="donut" id="kd"></div></div>
+      <div>
+        <h3 style="margin-bottom:6px">Jenjang lanjutan (tanpa MAKESTA)</h3>
+        <div id="kb"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
