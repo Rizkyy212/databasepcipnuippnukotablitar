@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Peta Kondisi IPNU-IPPNU Kota Blitar</title>
+
+<style>
+/* =====================================================
+   1. VARIABEL WARNA & RESET
+   ===================================================== */
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  color-scheme: dark;
+
+  --bg:   #0a1511;   /* latar halaman */
+  --card: #101c16;   /* latar kartu */
+  --soft: #14231b;   /* latar lembut / baris genap */
+  --tx:   #e8f3ec;   /* teks utama */
+  --mut:  #8fa99a;   /* teks redup */
+  --bd:   #1f3328;   /* garis */
+  --sh:   0 8px 24px rgba(0,0,0,.45);
+
+  --gb: #052e1c;  --yb: #3a2a05;  --rb: #3b0d0d;   /* latar badge aktif/sp/vakum */
+  --pr: #60a5fa;  --prb: #14284d;                  /* PR (biru) */
+  --pk: #c084fc;  --pkb: #2e1747;                  /* PK (ungu) */
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tx);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+/* =====================================================
+   2. LAYOUT DASAR & TIPOGRAFI
+   ===================================================== */
+.hero {
+  background:
+    radial-gradient(circle at 85% 0, #34d39955, transparent 45%),
+    linear-gradient(135deg, #064e3b, #065f46 55%, #0f766e);
+  color: #fff;
+  padding: 28px 16px 70px;
+}
+.hero p  { margin: 0; color: #d1fae5; font-size: .92rem; }
+.hero .w { padding: 0; }
+.w  { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.up { margin-top: -48px; }
+
+.tag {
+  display: inline-block;
+  background: #ffffff22;
+  color: #fff;
+  border: 1px solid #ffffff33;
+  padding: 3px 12px;
+  border-radius: 99px;
+  font-size: .78rem;
+}
+h1 { font-size: clamp(1.5rem, 4vw, 2.2rem); margin: 10px 0 4px; line-height: 1.2; }
+h2 { font-size: 1.05rem; margin: 0 0 10px; }
+h3 { font-size: .95rem; margin: 0; }
+.sub { color: var(--mut); font-size: .85rem; }
+
+.grid  { display: grid; gap: 12px; }
+.stats { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+.cols  { grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); margin-top: 12px; }
+.main  { grid-template-columns: minmax(0, 1fr); margin-top: 12px; }
+@media (min-width: 860px) {
+  .main { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+}
+
+/* =====================================================
+   3. KARTU & KARTU STATISTIK
+   ===================================================== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: var(--sh);
+  min-width: 0;
+}
+.st {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  border: 0;
+  padding: 14px 16px;
+}
+.st b    { display: block; font-size: 2rem; line-height: 1.1; }
+.st span { font-size: .8rem; opacity: .92; }
+.st:after {
+  content: "";
+  position: absolute;
+  right: -18px; top: -18px;
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  background: #ffffff26;
+}
+
+/* warna kartu statistik */
+.c0   { background: linear-gradient(135deg, #0f766e, #14b8a6); --ac: #7dd3fc; }
+.c1   { background: linear-gradient(135deg, #059669, #34d399); --ac: #34d399; }
+.c2   { background: linear-gradient(135deg, #d97706, #fbbf24); --ac: #fbbf24; }
+.c3   { background: linear-gradient(135deg, #dc2626, #f87171); --ac: #f87171; }
+.cpr  { background: linear-gradient(135deg, #1d4ed8, #60a5fa); --ac: #60a5fa; }
+.cpk  { background: linear-gradient(135deg, #7e22ce, #c084fc); --ac: #c084fc; }
+.cpac { background: linear-gradient(135deg, #0f172a, #475569); --ac: #94a3b8; }
+.ckd  { background: linear-gradient(135deg, #be185d, #f472b6); --ac: #f472b6; }
+
+/* =====================================================
+   4. TABEL
+   ===================================================== */
+.tw {
+  overflow-x: auto;
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  scrollbar-color: #2f5a45 #101c16;
+}
+table {
+  width: 100%;
+  font-size: .88rem;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+th, td {
+  text-align: left;
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--bd);
+  vertical-align: top;
+}
+th {
+  background: #16281f;
+  color: #bfe3cf;
+  font-weight: 700;
+  font-size: .72rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-bottom: 2px solid #10b981;
+}
+th:first-child { border-top-left-radius: 10px; }
+th:last-child  { border-top-right-radius: 10px; }
+th.hpr { color: #93c5fd !important; }
+th.hpk { color: #d8b4fe !important; }
+td.n, th.n { text-align: center; }
+tbody tr:nth-child(even) { background: var(--soft); }
+tbody tr.cl       { cursor: pointer; }
+tbody tr.cl:hover { background: var(--soft); }
+tfoot td { font-weight: 800; background: #16281f; color: var(--tx); border: 0; }
+
+/* tabel ringkasan usia */
+.mx td   { text-align: center; }
+.mx td.z { color: var(--mut); }
+
+/* =====================================================
+   5. BADGE, TAG, CHIP, BAR
+   ===================================================== */
+.chip {
+  display: inline-block;
+  margin: 2px 4px 2px 0;
+  padding: 2px 9px;
+  border-radius: 99px;
+  font-size: .78rem;
+  font-weight: 600;
+}
+.b {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 99px;
+  font-size: .76rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.b.a { background: #052e1c; color: #4ade80; }   /* aktif */
+.b.s { background: #3a2a05; color: #fbbf24; }   /* SP habis */
+.b.v { background: #3b0d0d; color: #f87171; }   /* vakum */
+
+.t {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 6px;
+  font-size: .72rem;
+  font-weight: 700;
+}
+.t.pr { background: var(--prb); color: var(--pr); }
+.t.pk { background: var(--pkb); color: var(--pk); }
+
+.dot {
+  display: inline-block;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+/* bar bertumpuk (aktif / sp / vakum) */
+.sb   { margin: 9px 0; }
+.sb .l { display: flex; justify-content: space-between; font-size: .82rem; margin-bottom: 3px; }
+.sbar {
+  display: flex;
+  height: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+  gap: 2px;
+  background: var(--bd);
+}
+.sbar i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: .75rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* bar progres kecil */
+.kb { height: 12px; border-radius: 6px; background: var(--bd); overflow: hidden; min-width: 90px; }
+.kb i { display: block; height: 100%; border-radius: 6px; }
+.kr {
+  display: grid;
+  grid-template-columns: 110px 1fr 34px;
+  gap: 8px;
+  align-items: center;
+  font-size: .82rem;
+  margin: 7px 0;
+}
+
+/* =====================================================
+   6. DONUT & LEGENDA
+   ===================================================== */
+.donut { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.donut svg { width: 150px; flex: none; }
+.lg { font-size: .84rem; line-height: 1.9; }
+
+/* =====================================================
+   7. PETA
+   ===================================================== */
+#map { width: 100%; height: auto; display: block; }
+#tip { min-height: 26px; text-align: center; font-weight: 600; font-size: .9rem; margin-top: 6px; }
+
+.reg { cursor: pointer; fill-opacity: .2; stroke-width: 3; stroke-linejoin: round; transition: .2s; }
+.reg:hover { fill-opacity: .32; }
+.reg.dim   { opacity: .4; }
+
+.nl {                       /* label nama titik */
+  pointer-events: none;
+  fill: #d1fae5;
+  font-size: 10px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: #0a1511;
+  stroke-width: 3px;
+}
+.rl {                       /* label kecamatan */
+  pointer-events: none;
+  fill: #fff;
+  font-weight: 800;
+  font-size: 14px;
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: #0004;
+  stroke-width: 3px;
+}
+.nd { stroke: #0a1511; stroke-width: 2; cursor: pointer; transition: .15s; transform-box: fill-box; transform-origin: center; }
+.nd:hover { stroke-width: 4; transform: scale(1.35); }
+
+.mlegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  font-size: .78rem;
+  margin-top: 6px;
+  justify-content: center;
+}
+
+/* =====================================================
+   8. PANEL DETAIL KECAMATAN
+   ===================================================== */
+.kv {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 8px;
+  margin: 12px 0;
+}
+.kv div   { background: var(--soft); border-radius: 12px; padding: 8px 11px; font-size: .86rem; font-weight: 600; }
+.kv small { display: block; color: var(--mut); font-weight: 400; font-size: .74rem; }
+
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0 6px; }
+.tabs button {
+  border: 1px solid var(--bd);
+  background: var(--soft);
+  color: var(--tx);
+  padding: 6px 14px;
+  border-radius: 99px;
+  cursor: pointer;
+  font-size: .82rem;
+  font-family: inherit;
+}
+.tabs button.on {
+  background: linear-gradient(135deg, #059669, #0d9488);
+  color: #fff;
+  border-color: transparent;
+}
+
+.sec { border-radius: 14px; padding: 10px 12px; margin-top: 10px; border: 1px solid var(--bd); border-left: 5px solid; }
+.sec.pr { border-left-color: var(--pr); }
+.sec.pk { border-left-color: var(--pk); }
+.sh { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.empty { text-align: center; padding: 50px 10px; color: var(--mut); }
+.empty big { font-size: 2.4rem; display: block; }
+
+/* =====================================================
+   9. STATISTIK USIA
+   ===================================================== */
+.ag {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 6px 10px;
+  align-items: center;
+  font-size: .82rem;
+}
+.ag .tr {
+  position: relative;
+  height: 30px;
+  background: var(--soft);
+  border-radius: 6px;
+  background-image: linear-gradient(90deg, var(--bd) 1px, transparent 1px);
+  background-size: calc(100% / 13) 100%;
+}
+.ag .tr i {
+  position: absolute;
+  top: 2px; bottom: 2px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: .68rem;
+  font-style: normal;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.ax { display: grid; grid-template-columns: repeat(13, 1fr); font-size: .68rem; color: var(--mut); text-align: center; }
+
+/* =====================================================
+   10. FORM, CATATAN SUMBER
+   ===================================================== */
+.src { color: var(--mut); font-size: .74rem; margin: 10px 0 0; border-top: 1px solid var(--bd); padding-top: 6px; }
+select, input {
+  background: var(--soft);
+  color: var(--tx);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 7px 10px;
+  font-family: inherit;
+  font-size: .85rem;
+}
+
+/* =====================================================
+   11. ANIMASI
+   ===================================================== */
+@keyframes fi   { from { opacity: 0; } }
+@keyframes pop  { from { opacity: 0; transform: scale(0); } }
+@keyframes up   { from { opacity: 0; transform: translateY(14px); } }
+@keyframes grow { from { transform: scaleX(0); } }
+@keyframes draw { from { stroke-dasharray: 0 400; } }
+@keyframes sl   { from { opacity: 0; transform: translateX(-24px); } }
+
+/* kartu muncul saat di-scroll (.rv -> .rv.go) */
+.rv { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.rv.go { opacity: 1; transform: none; }
+
+/* bar tumbuh dari kiri */
+.sbar i, .kb i, .ag .tr i { transform-origin: left; }
+.rv:not(.go) :is(.sbar i, .kb i, .ag .tr i) { transform: scaleX(0); }
+.rv.go :is(.sbar i, .kb i, .ag .tr i) { animation: grow 1.1s cubic-bezier(.2,.8,.2,1) both; }
+
+/* donut digambar bertahap */
+.rv:not(.go) .donut circle { stroke-dasharray: 0 400; }
+.rv.go .donut circle { animation: draw 1.3s ease both; }
+
+#detail > * { animation: up .45s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .rv { opacity: 1; transform: none; }
+  .rv:not(.go) :is(.sbar i, .kb i, .ag .tr i) { transform: none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     HTML: KERANGKA HALAMAN (isi diisi oleh JavaScript)
+     ===================================================== -->
+<div class="hero">
+  <div class="w">
+    <span class="tag">PIMPINAN CABANG KOTA BLITAR</span>
+    <h1>Peta Kondisi IPNU-IPPNU</h1>
+    <p>Pantau kondisi PAC, PR dan PK di setiap kecamatan — klik peta untuk melihat detail.</p>
+  </div>
+</div>
+
+<div class="w up">
+
+  <!-- Kartu statistik ringkas -->
+  <div class="grid stats" id="stats"></div>
+
+  <!-- Tabel total pimpinan cabang -->
+  <div class="card" style="margin-top:12px">
+    <h2>📊 Total Pimpinan Cabang</h2>
+    <div class="tw"><table id="sum"></table></div>
+  </div>
+
+  <!-- Tiga grafik ringkas -->
+  <div class="grid cols">
+    <div class="card"><h2>🍩 Kondisi Seluruh Pimpinan</h2><div class="donut" id="donut"></div></div>
+    <div class="card"><h2>🆚 PR vs PK</h2><div id="prpk"></div></div>
+    <div class="card"><h2>🏘️ Kondisi per PAC</h2><div id="perpac"></div></div>
+  </div>
+
+  <!-- Peta + detail -->
+  <div class="grid main">
+    <div class="card">
+      <h2>📍 Peta Sebaran Pimpinan</h2>
+      <svg viewBox="0 0 557 715" id="map" role="img" aria-label="Peta Kota Blitar"></svg>
+      <div id="tip">👆 Klik kecamatan atau titik untuk detail</div>
+      <div class="mlegend">
+        <span>● PR (lingkaran)</span>
+        <span style="color:var(--pk)">■ PK (kotak ungu)</span>
+        <span><span class="dot" style="background:#10b981"></span>Aktif</span>
+        <span><span class="dot" style="background:#f59e0b"></span>SP Habis</span>
+        <span><span class="dot" style="background:#ef4444"></span>Vakum</span>
+      </div>
+    </div>
+
+    <div class="card" id="detail">
+      <div class="empty"><big>🗺️</big>Pilih kecamatan pada peta<br>untuk melihat kondisi PR, PK &amp; usia.</div>
+    </div>
+  </div>
+
+  <!-- Statistik usia -->
+  <div class="card" style="margin:12px 0 20px">
+    <h2>🎂 Statistik Usia Pimpinan</h2>
+    <div class="grid stats" id="ak" style="margin-bottom:14px"></div>
+
+    <div class="grid cols" style="grid-template-columns:repeat(auto-fit,minmax(340px,1fr))">
+      <div>
+        <h3>Rentang usia tiap pimpinan (tahun)</h3>
+        <div class="ag" id="age" style="margin-top:8px"></div>
+        <div class="mlegend" style="justify-content:flex-start;margin-top:10px">
+          <span><span class="dot" style="background:#2563eb"></span>IPNU</span>
+          <span><span class="dot" style="background:#db2777"></span>IPPNU</span>
+        </div>
+      </div>
+      <div>
+        <h3>Persentase pimpinan yang mencakup tiap usia</h3>
+        <div id="ah" style="margin-top:8px"></div>
+      </div>
+    </div>
+
+    <div class="grid cols" style="grid-template-columns:repeat(auto-fit,minmax(340px,1fr));margin-top:16px">
+      <div>
+        <h3>Ringkasan per tingkat</h3>
+        <div class="tw" style="margin-top:8px"><table id="at"></table></div>
+      </div>
+      <div>
+        <h3>Sebaran menurut kelompok usia</h3>
+        <div class="donut" id="ad" style="margin-top:8px"></div>
+      </div>
+    </div>
+
+    <p class="sub" style="margin:12px 0 0">Catatan: data usia saat ini masih satu rentang untuk IPNU dan IPPNU, jadi keduanya sama.</p>
+  </div>
+
+  <!-- Data pengkaderan -->
+  <div class="card" style="margin:0 0 20px">
+    <h2>🎓 Data Pengkaderan</h2>
+    <div class="tw"><table id="kt"></table></div>
+    <div class="grid cols" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin-top:12px">
+      <div><div class="donut" id="kd"></div></div>
+      <div>
+        <h3 style="margin-bottom:6px">Jenjang lanjutan (tanpa MAKESTA)</h3>
+        <div id="kb"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* =====================================================
+   GAMBAR LATAR PETA (base64 JPEG)
+   -> Tempel string base64 asli di sini. Ini satu-satunya
+      baris panjang; sisanya aman diedit.
+   ===================================================== */
+const IMG = "PASTE_BASE64_GAMBAR_PETA_DI_SINI";
+
+
+/* =====================================================
+   1. DATA  (EDIT DATA DI BAGIAN INI)
+   ===================================================== */
+
+/* 1a. Rentang usia tiap pimpinan: [nama, usiaMin, usiaMax, warna] */
+const A = [
+  ["PR Tlumpu",          15, 17, "#2563eb"],
+  ["PR Karangsari",      15, 20, "#2563eb"],
+  ["PR Tanjungsari",     15, 20, "#2563eb"],
+  ["PR Pakunden",        13, 21, "#2563eb"],
+  ["PK MTs",             14, 14, "#9333ea"],
+  ["PK MA",              17, 17, "#9333ea"],
+  ["PAC Sukorejo",       19, 21, "#0d9488"],
+  ["PAC Kepanjen Kidul", 19, 22, "#0d9488"],
+  ["PAC Sananwetan",     17, 19, "#0d9488"],
+  ["Pimpinan Cabang",    19, 23, "#334155"]
+];
+
+/* 1b. Data per kecamatan
+   Kondisi: a = Aktif, s = SP Habis, v = Vakum
+   PR : [nama, kondisi, x, y]
+   PK : [nama, kondisi, x, y, namaSingkatDiPeta]
+   (x,y = posisi titik pada peta 557 x 715)                        */
+const D = {
+  sukorejo: {
+    nama: "Sukorejo",
+    usia: "19–21 tahun",
+    pac: {
+      kondisi: "a", ketua: "Ridho Mayar", ketri: "Devy Putri", masa: "2026–2027",
+      sp: "Ada", adm: "Lengkap", keg: "Aktif",
+      spHabis: "-", konfer: "-", masalah: "-", butuh: "-"
+    },
+    PR: [
+      ["Tanjungsari", "a", 120, 455],
+      ["Karangsari",  "a", 205, 505],
+      ["Tlumpu",      "a", 170, 625],
+      ["Pakunden",    "a",  95, 335],
+      ["Sukorejo",    "v", 150, 545],
+      ["Blitar",      "v", 115, 495],
+      ["Turi",        "v", 185, 455]
+    ],
+    PK: [
+      ["Mambaul Huda", "a", 90, 400, "Mambaul Huda"]
+    ]
+  },
+
+  sananwetan: {
+    nama: "Sananwetan",
+    usia: "17–19 tahun",
+    pac: {
+      kondisi: "a", ketua: "Ilham", ketri: "Azizah", masa: "2026–2027",
+      sp: "Ada", adm: "Tidak ada", keg: "Tidak ada",
+      spHabis: "-", konfer: "-", masalah: "Tidak ada pengurus", butuh: "Regenerasi"
+    },
+    PR: [
+      ["Sananwetan",  "v", 440, 385],
+      ["Klampok",     "s", 390, 655],
+      ["Gedog",       "s", 400, 290],
+      ["Rembang",     "v", 310, 610],
+      ["Karangtengah","v", 355, 497],
+      ["Plosokerep",  "v", 300, 470],
+      ["Bendogerit",  "s", 400, 215],
+      ["Pukeas",      "s", 370, 570]
+    ],
+    PK: []
+  },
+
+  kepanjenkidul: {
+    nama: "Kepanjen Kidul",
+    usia: "19–22 tahun",
+    pac: {
+      kondisi: "a", ketua: "Mahda", ketri: "Sofi", masa: "2024–2026",
+      sp: "Ada", adm: "Sebagian", keg: "Jarang",
+      spHabis: "November 2026", konfer: "Desember 2026",
+      masalah: "Administrasi", butuh: "Pendampingan"
+    },
+    PR: [
+      ["Kepanjenkidul", "v", 290, 415],
+      ["Kauman",        "s", 232, 335],
+      ["Santren",       "s", 300, 380],
+      ["Ngadirejo",     "a", 350,  85],
+      ["Sentul",        "v", 418, 112],
+      ["Bendo",         "v", 255, 285],
+      ["Kepanjenlor",   "v", 275, 350]
+    ],
+    PK: [
+      ["MA Bustanul Muta'alimin",  "a", 318, 235, "MA Bustanul"],
+      ["SMP Bustanul Muta'alimin", "a", 318, 300, "SMP Bustanul"],
+      ["MTs Ma'arif NU",           "a", 330, 265, "MTs Ma'arif"],
+      ["MA Ma'arif NU",            "a", 300, 205, "MA Ma'arif"],
+      ["SMK Islam 1 Blitar",       "s", 310, 360, "SMK Islam 1"],
+      ["MTs Ma'arif NU Tambakboyo","a", 330, 400, "MTs Tambakboyo"]
+    ]
+  }
+};
+
+/* 1c. Data pengkaderan: [jenis, jumlah, keterangan, warna] */
+const K = [
+  ["MAKESTA",   514, "Anggota",           "#14b8a6"],
+  ["LAKMUD",     25, "Kader Muda",        "#3b82f6"],
+  ["LAKUT",       4, "Kader Utama IPPNU", "#8b5cf6"],
+  ["LATPEL",      6, "Pelatih",           "#f59e0b"],
+  ["DIKLATAMA",  18, "KPP",               "#ec4899"],
+  ["DIKLATPEL",   1, "Pelatih",           "#f97316"]
+];
+const KT = K.reduce((a, b) => a + b[1], 0);   // total kader
+
+/* 1d. Bentuk wilayah kecamatan pada peta (titik polygon) & warnanya */
+const P = {
+  sukorejo:      [[0,322],[65,258],[150,270],[195,290],[205,325],[240,360],[255,445],[250,520],[285,650],[240,690],[170,700],[100,640],[50,560],[0,430]],
+  kepanjenkidul: [[270,30],[440,15],[480,120],[440,200],[345,215],[330,330],[345,440],[255,445],[240,360],[205,325],[195,290],[225,250],[270,170]],
+  sananwetan:    [[440,200],[480,120],[500,250],[515,420],[470,520],[420,700],[330,715],[285,650],[250,520],[255,445],[345,440],[330,330],[345,215]]
+};
+const COL = { sukorejo: "#16a34a", kepanjenkidul: "#ca8a04", sananwetan: "#ea580c" };
+
+/* 1e. Label & warna kondisi */
+const L  = { a: "🟢 Aktif", s: "🟡 SP Habis", v: "🔴 Vakum" };
+const CL = { a: "#10b981",  s: "#f59e0b",     v: "#ef4444" };
+
+
+/* =====================================================
+   2. FUNGSI BANTU
+   ===================================================== */
+const ks = Object.keys(D);                                   // daftar kunci kecamatan
+const el = id => document.getElementById(id);
+
+/* badge kondisi */
+const badge = k => `<span class="b ${k}">${L[k]}</span>`;
+
+/* hitung jumlah per kondisi dari daftar [nama, kondisi, ...] */
+const cnt = list => {
+  const c = { a: 0, s: 0, v: 0 };
+  list.forEach(i => c[i[1]]++);
+  return c;
+};
+
+/* semua PR + PK pada satu kecamatan */
+const all = k => [...D[k].PR, ...D[k].PK];
+
+/* persentase 1 desimal */
+function pc2(a, b) { return Math.round(a / b * 1000) / 10; }
+
+/* usia suatu pimpinan (tipe "PR"/"PK", nama) -> teks, atau null */
+const usia = (t, n) => {
+  const f = A.find(a => a[0] == t + " " + n);
+  if (f) return f[1] == f[2] ? f[1] : f[1] + "–" + f[2];
+  return t == "PK" ? (/^MTs/.test(n) ? "14" : /^MA /.test(n) ? "17" : null) : null;
+};
+
+/* kumpulan total */
+const PRall = ks.flatMap(k => D[k].PR);
+const PKall = ks.flatMap(k => D[k].PK);
+const ALL   = [...PRall, ...PKall];
+const T     = cnt(ALL);
+const tot   = ALL.length;
+
+/* bar bertumpuk aktif/sp/vakum */
+const sbar = (c, n) =>
+  `<div class="sbar">${["a", "s", "v"].filter(k => c[k]).map(k =>
+    `<i style="width:${c[k] / n * 100}%;background:${CL[k]}">${c[k]}</i>`
+  ).join("")}</div>`;
+
+/* donut kecil untuk panel detail */
+function dn(c, n) {
+  let offset = 0, arcs = "";
+  ["a", "s", "v"].forEach(k => {
+    if (!c[k]) return;
+    const len = c[k] / n * 314.16;
+    arcs += `<circle r="50" cx="70" cy="70" fill="none" stroke="${CL[k]}" stroke-width="22" stroke-dasharray="${len - 1.5} 314.16" stroke-dashoffset="${-offset}" transform="rotate(-90 70 70)"/>`;
+    offset += len;
+  });
+  return `<svg viewBox="0 0 140 140" style="width:120px;flex:none">${arcs}<text x="70" y="76" text-anchor="middle" font-size="22" font-weight="800" fill="currentColor">${n}</text></svg>`;
+}
+
+
+/* =====================================================
+   3. KARTU STATISTIK ATAS
+   ===================================================== */
+el("stats").innerHTML = [
+  ["Total Pimpinan", tot + 3,        "3 PAC + 22 PR + 7 PK", "c0"],
+  ["🟢 Aktif",        T.a,            "",                     "c1"],
+  ["🟡 SP Habis",     T.s,            "",                     "c2"],
+  ["🔴 Vakum",        T.v,            "",                     "c3"],
+  ["PAC",            3,              "kecamatan",            "cpac"],
+  ["PR",             PRall.length,   "Pimpinan Ranting",     "cpr"],
+  ["PK",             PKall.length,   "Pimpinan Komisariat",  "cpk"],
+  ["Total Kader",    568,            "semua jenjang",        "ckd"]
+].map(s => `<div class="card st ${s[3]}"><span>${s[0]}</span><b>${s[1]}</b><span>${s[2]}</span></div>`).join("");
+
+
+/* =====================================================
+   4. TABEL TOTAL PIMPINAN CABANG
+   ===================================================== */
+el("sum").innerHTML = `
+<thead><tr>
+  <th class="n">No</th><th>PAC</th><th class="n">Status PAC</th>
+  <th class="n hpr">PR</th><th class="n hpk">PK</th><th class="n">Total PR PK</th>
+  <th class="n">🟢 Aktif</th><th class="n">🟡 SP Habis</th><th class="n">🔴 Vakum</th>
+</tr></thead>
+<tbody>` +
+ks.map((k, i) => {
+  const c = cnt(all(k));
+  return `<tr class="cl" onclick="show('${k}')">
+    <td class="n">${i + 1}</td>
+    <td><b>PAC ${D[k].nama}</b></td>
+    <td class="n">${badge(D[k].pac.kondisi)}</td>
+    <td class="n"><span class="t pr">${D[k].PR.length}</span></td>
+    <td class="n"><span class="t pk">${D[k].PK.length}</span></td>
+    <td class="n"><b>${all(k).length}</b></td>
+    <td class="n">${c.a}</td><td class="n">${c.s}</td><td class="n">${c.v}</td>
+  </tr>`;
+}).join("") +
+`</tbody>
+<tfoot><tr>
+  <td></td>
+  <td>Total Semua Pimpinan PC<br><span class="sub" style="font-weight:400">(PAC - PR - PK)</span></td>
+  <td></td>
+  <td class="n"><span class="t pr">${PRall.length}</span></td>
+  <td class="n"><span class="t pk">${PKall.length}</span></td>
+  <td class="n">${tot + 3}*</td>
+  <td class="n">${T.a}</td><td class="n">${T.s}</td><td class="n">${T.v}</td>
+</tr></tfoot>`;
+
+/* catatan di bawah tabel */
+el("sum").closest(".tw").insertAdjacentHTML("afterend",
+  '<p class="sub" style="margin:8px 2px 0">* Total 32 = 3 PAC + 22 PR + 7 PK. Jumlah per kondisi (11 aktif, 7 SP habis, 11 vakum) dihitung untuk 29 pimpinan PR dan PK.</p>');
+
+
+/* =====================================================
+   5. GRAFIK RINGKAS (donut, PR vs PK, per PAC)
+   ===================================================== */
+
+/* 5a. Donut kondisi seluruh pimpinan */
+(function () {
+  let offset = 0, arcs = "";
+  ["a", "s", "v"].forEach(k => {
+    const len = T[k] / tot * 314.16;
+    arcs += `<circle r="50" cx="70" cy="70" fill="none" stroke="${CL[k]}" stroke-width="22" stroke-dasharray="${len - 1.5} ${314.16 - len + 1.5}" stroke-dashoffset="${-offset}" transform="rotate(-90 70 70)"/>`;
+    offset += len;
+  });
+  el("donut").innerHTML = `
+    <svg viewBox="0 0 140 140">${arcs}
+      <text x="70" y="72" text-anchor="middle" font-size="26" font-weight="800" fill="currentColor">${tot}</text>
+      <text x="70" y="88" text-anchor="middle" font-size="9" fill="#888">PR + PK</text>
+    </svg>
+    <div class="lg">${["a", "s", "v"].map(k =>
+      `<div><span class="dot" style="background:${CL[k]}"></span>${L[k].slice(3)}: <b>${T[k]}</b> (${Math.round(T[k] / tot * 100)}%)</div>`
+    ).join("")}</div>`;
+})();
+
+/* 5b. PR vs PK */
+el("prpk").innerHTML =
+  [["PR", "pr", PRall], ["PK", "pk", PKall]].map(([nama, cls, list]) => `
+    <div class="sb">
+      <div class="l"><span><span class="t ${cls}">${nama}</span></span><b>${list.length}</b></div>
+      ${sbar(cnt(list), list.length)}
+    </div>`).join("") +
+  `<p class="sub">PR terbanyak vakum, sedangkan PK hampir seluruhnya aktif.</p>`;
+
+/* 5c. Kondisi per PAC */
+el("perpac").innerHTML = ks.map(k => {
+  const c = cnt(all(k)), n = all(k).length;
+  return `
+    <div class="sb">
+      <div class="l"><span>PAC ${D[k].nama}</span><b>${n}</b></div>
+      ${sbar(c, n)}
+      <div class="sub" style="font-size:.76rem;margin-top:3px">🟢 ${pc2(c.a, n)}% · 🟡 ${pc2(c.s, n)}% · 🔴 ${pc2(c.v, n)}%</div>
+    </div>`;
+}).join("");
+
+
+/* =====================================================
+   6. PETA
+   ===================================================== */
+
+/* 6a. Kumpulkan semua titik (PR & PK) */
+const N = [];
+ks.forEach(k => {
+  [
+    ...D[k].PR.map(i => ["PR", ...i]),
+    ...D[k].PK.map(i => ["PK", ...i])
+  ].forEach(it => N.push({
+    k,
+    t:  it[0],              // tipe: PR / PK
+    n:  it[1],              // nama
+    st: it[2],              // kondisi
+    x:  it[3],
+    y:  it[4],
+    sh: it[5] || it[1]      // nama singkat untuk label
+  }));
+});
+
+/* 6b. Dorong titik yang saling bertumpuk (jarak minimal 28) */
+for (let r = 0; r < 80; r++) {
+  for (let a = 0; a < N.length; a++) {
+    for (let b = a + 1; b < N.length; b++) {
+      const dx = N[b].x - N[a].x, dy = N[b].y - N[a].y;
+      const d = Math.hypot(dx, dy) || .1;
+      if (d < 28) {
+        const m = (28 - d) / 2, ux = dx / d, uy = dy / d;
+        N[a].x -= ux * m;  N[a].y -= uy * m;
+        N[b].x += ux * m;  N[b].y += uy * m;
+      }
+    }
+  }
+}
+
+/* 6c. Tentukan posisi label supaya tidak menabrak titik / label lain */
+const boxes = [];
+N.forEach(n => boxes.push([n.x - 10, n.y - 10, n.x + 10, n.y + 10]));
+
+const collides = b =>
+  b[0] < 4 || b[2] > 553 ||
+  boxes.some(o => b[0] < o[2] && b[2] > o[0] && b[1] < o[3] && b[3] > o[1]);
+
+N.forEach(n => {
+  const w = n.sh.length * 5.8 + 4;
+  const options = [
+    [n.x + 12, n.y + 4,  "start",  [n.x + 11,     n.y - 7,  n.x + 12 + w,  n.y + 8 ]],   // kanan
+    [n.x - 12, n.y + 4,  "end",    [n.x - 12 - w, n.y - 7,  n.x - 11,      n.y + 8 ]],   // kiri
+    [n.x,      n.y + 24, "middle", [n.x - w / 2,  n.y + 12, n.x + w / 2,   n.y + 27]],   // bawah
+    [n.x,      n.y - 14, "middle", [n.x - w / 2,  n.y - 26, n.x + w / 2,   n.y - 12]]    // atas
+  ];
+  const pick = options.find(o => !collides(o[3])) || options[0];
+  boxes.push(pick[3]);
+  n.lx = pick[0];  n.ly = pick[1];  n.an = pick[2];
+});
+
+/* 6d. Susun SVG peta */
+let svg = `
+<rect width="557" height="715" rx="14" fill="#0c1812"/>
+<defs>
+  <filter id="bl" color-interpolation-filters="sRGB">
+    <feColorMatrix type="matrix" values="0 0 0 0 .2  0 0 0 0 .83  0 0 0 0 .6  -.33 -.59 -.11 0 1"/>
+  </filter>
+</defs>
+<image href="${IMG}" x="0" y="0" width="557" height="715" opacity=".55" filter="url(#bl)"/>`;
+
+/* wilayah kecamatan */
+svg += ks.map((k, i) =>
+  `<polygon class="reg" data-k="${k}" points="${P[k].join(" ")}" style="fill:${COL[k]};stroke:${COL[k]};animation:fi .9s ${i * .2}s backwards"/>`
+).join("");
+
+/* titik PR (lingkaran) & PK (kotak) + label */
+N.forEach((n, i) => {
+  const warna = CL[n.st];
+  const tip   = `${n.t} ${n.n} · ${L[n.st]}`;
+  const anim  = `animation:pop .5s ${.5 + i * .035}s backwards`;
+
+  svg += n.t == "PR"
+    ? `<circle class="nd" data-k="${n.k}" data-t="${tip}" cx="${n.x.toFixed(1)}" cy="${n.y.toFixed(1)}" r="8" fill="${warna}" style="${anim}"/>`
+    : `<rect class="nd" data-k="${n.k}" data-t="${tip}" x="${(n.x - 8).toFixed(1)}" y="${(n.y - 8).toFixed(1)}" width="16" height="16" rx="3" fill="${warna}" style="stroke:#c084fc;stroke-width:2.5;${anim}"/>`;
+
+  svg += `<text class="nl" x="${n.lx.toFixed(1)}" y="${n.ly.toFixed(1)}" text-anchor="${n.an}" style="${n.t == "PK" ? "fill:#d8b4fe;" : ""}animation:fi .5s ${.7 + i * .035}s backwards">${n.sh}</text>`;
+});
+
+/* plakat nama kecamatan di sisi kiri peta */
+ks.forEach((k, i) => {
+  const cx = 82, y = 34 + i * 68;
+  const c = cnt(all(k)), pk = D[k].pac.kondisi;
+  svg += `
+  <g class="pl" data-k="${k}" style="cursor:pointer;animation:sl .6s ${i * .12}s backwards">
+    <rect x="${cx - 75}" y="${y - 16}" width="150" height="62" rx="10" fill="${COL[k]}"/>
+    <text x="${cx}" y="${y}" text-anchor="middle" fill="#fff" font-size="11.5" font-weight="800">KEC. ${D[k].nama.toUpperCase()}</text>
+    <text x="${cx}" y="${y + 14}" text-anchor="middle" fill="#fff" font-size="9.5">${D[k].PR.length} PR · ${D[k].PK.length} PK · 🟢${c.a} 🟡${c.s} 🔴${c.v}</text>
+    <rect x="${cx - 48}" y="${y + 22}" width="96" height="17" rx="8" fill="${CL[pk]}" stroke="#0a1511"/>
+    <text x="${cx}" y="${y + 34.5}" text-anchor="middle" fill="#fff" font-size="10" font-weight="800">PAC ${L[pk].slice(3).toUpperCase()}</text>
+  </g>`;
+});
+
+/* legenda di pojok kiri-bawah peta */
+svg += `<g style="pointer-events:none">
+  <rect x="4" y="636" width="104" height="72" rx="8" fill="#101c16" stroke="#1f3328"/>` +
+  [["a", "Aktif"], ["s", "SP Habis"], ["v", "Vakum"]].map((r, i) =>
+    `<circle cx="18" cy="${650 + i * 15}" r="6" fill="${CL[r[0]]}"/>
+     <text x="30" y="${654 + i * 15}" font-size="10" fill="#e8f3ec">${r[1]}</text>`
+  ).join("") +
+  `<rect x="12" y="689" width="12" height="12" rx="3" fill="none" stroke="#c084fc" stroke-width="2.5"/>
+   <text x="30" y="699" font-size="10" fill="#c084fc">PK</text>
+</g>`;
+
+el("map").innerHTML = svg;
+
+/* 6e. Interaksi peta */
+const tip = el("tip");
+
+document.querySelectorAll(".cell").forEach(e => {
+  e.onmouseenter = () => tip.textContent = e.dataset.t;
+});
+document.querySelectorAll(".nd").forEach(e => {
+  e.onmouseenter = () => tip.textContent = e.dataset.t;
+  e.onclick = () => { tip.textContent = e.dataset.t; show(e.dataset.k); };
+});
+document.querySelectorAll(".reg").forEach(r => r.onclick = () => show(r.dataset.k));
+document.querySelectorAll(".pl").forEach(e => e.onclick = () => show(e.dataset.k));
+
+
+/* =====================================================
+   7. PANEL DETAIL KECAMATAN
+   ===================================================== */
+let cur  = null;      // kecamatan yang sedang dipilih
+let filt = "all";     // filter kondisi: all / a / s / v
+
+function show(k) {
+  cur = k;
+  filt = "all";
+  document.querySelectorAll(".reg").forEach(r => r.classList.toggle("dim", r.dataset.k !== k));
+  render();
+  el("detail").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+/* satu seksi tabel (PR atau PK) */
+function sec(t, list, cl, title) {
+  const rows = list.filter(r => filt === "all" || r[1] === filt);
+  const c = cnt(list);
+
+  const body = rows.map((r, i) => {
+    const u = usia(t, r[0]);
+    return `<tr>
+      <td>${i + 1}</td>
+      <td>${t} ${r[0]}</td>
+      <td>${u ? u + " th" : "-"}</td>
+      <td>${u ? u + " th" : "-"}</td>
+      <td>${badge(r[1])}</td>
+    </tr>`;
+  }).join("") || '<tr><td colspan="5" class="sub">Tidak ada data pada filter ini</td></tr>';
+
+  return `
+  <div class="sec ${cl}">
+    <div class="sh">
+      <h3><span class="t ${cl}">${t}</span> ${title} · ${list.length}</h3>
+      <span class="sub">🟢${c.a} · 🟡${c.s} · 🔴${c.v}</span>
+    </div>` +
+    (list.length
+      ? `<div class="tw"><table>
+           <thead><tr><th>No</th><th>Nama</th><th style="color:#93c5fd">Usia IPNU</th><th style="color:#f9a8d4">Usia IPPNU</th><th>Kondisi</th></tr></thead>
+           <tbody>${body}</tbody>
+         </table></div>`
+      : `<p class="sub">Belum ada ${t} di kecamatan ini.</p>`) +
+  `</div>`;
+}
+
+function render() {
+  const x = D[cur], p = x.pac;
+  const c = cnt(all(cur)), n = all(cur).length;
+
+  /* kotak angka ringkas */
+  const stat = [[n, "Total", "c0"], [c.a, "Aktif", "c1"], [c.s, "SP Habis", "c2"], [c.v, "Vakum", "c3"]]
+    .map(s => `<div class="card st ${s[2]}" style="padding:10px 12px"><b style="font-size:1.5rem">${s[0]}</b><span>${s[1]}</span></div>`)
+    .join("");
+
+  /* info PAC */
+  const info = `
+    <div class="kv">
+      <div style="border-left:4px solid #2563eb"><small>Usia IPNU</small>${x.usia}</div>
+      <div style="border-left:4px solid #db2777"><small>Usia IPPNU</small>${x.usia}</div>
+      <div><small>Ketua IPNU</small>${p.ketua}</div>
+      <div><small>Ketua IPPNU</small>${p.ketri}</div>
+      <div><small>Masa Khidmat</small>${p.masa}</div>
+      <div><small>SP</small>${p.sp}</div>
+      <div><small>Administrasi</small>${p.adm}</div>
+      <div><small>Kegiatan</small>${p.keg}</div>
+      <div><small>SP Habis</small>${p.spHabis}</div>
+      <div><small>Konferancab</small>${p.konfer}</div>
+      <div><small>Masalah</small>${p.masalah}</div>
+      <div><small>Kebutuhan</small>${p.butuh}</div>
+    </div>`;
+
+  /* persentase kondisi */
+  const persen = `
+    <div style="background:var(--soft);border-radius:14px;padding:12px;margin:10px 0">
+      <h3 style="margin-bottom:8px">Persentase Kondisi PAC ${x.nama}</h3>
+      <div class="donut">${dn(c, n)}
+        <div style="flex:1;min-width:170px">
+          ${["a", "s", "v"].map(k => `
+            <div class="kr" style="grid-template-columns:70px 1fr 46px">
+              <span>${L[k].slice(3)}</span>
+              <div class="kb"><i style="width:${pc2(c[k], n)}%;background:${CL[k]}"></i></div>
+              <b>${pc2(c[k], n)}%</b>
+            </div>`).join("")}
+          ${x.PR.length ? `<div class="sub" style="margin-top:6px">PR (${x.PR.length})</div>${sbar(cnt(x.PR), x.PR.length)}` : ""}
+          ${x.PK.length ? `<div class="sub" style="margin-top:6px">PK (${x.PK.length})</div>${sbar(cnt(x.PK), x.PK.length)}` : ""}
+        </div>
+      </div>
+    </div>`;
+
+  /* tombol filter */
+  const tabs = `<div class="tabs">${
+    [["all", "Semua"], ["a", "🟢 Aktif"], ["s", "🟡 SP Habis"], ["v", "🔴 Vakum"]]
+      .map(([f, t]) => `<button class="${filt === f ? "on" : ""}" onclick="filt='${f}';render()">${t}</button>`)
+      .join("")
+  }</div>`;
+
+  el("detail").innerHTML =
+    `<h2>PAC ${x.nama} ${badge(p.kondisi)}</h2>
+     <div class="grid" style="grid-template-columns:repeat(4,1fr)">${stat}</div>` +
+    info + persen + tabs +
+    sec("PR", x.PR, "pr", "Pimpinan Ranting") +
+    sec("PK", x.PK, "pk", "Pimpinan Komisariat");
+}
+
+
+/* =====================================================
+   8. STATISTIK USIA
+   ===================================================== */
+
+/* 8a. Rentang usia tiap pimpinan (batang IPNU & IPPNU) */
+el("age").innerHTML =
+  A.map(a => {
+    const bar = (top, warna) =>
+      `<i style="top:${top}px;height:11px;left:${(a[1] - 12) / 13 * 100}%;width:${(a[2] - a[1] + 1) / 13 * 100}%;background:${warna}">${a[1] == a[2] ? a[1] : a[1] + "–" + a[2]}</i>`;
+    return `<div>${a[0]}</div><div class="tr">${bar(3, "#2563eb")}${bar(15, "#db2777")}</div>`;
+  }).join("") +
+  `<div></div><div class="ax">${[...Array(13)].map((_, i) => `<span>${12 + i}</span>`).join("")}</div>`;
+
+/* 8b. Kartu ringkas, persentase per usia, tabel per tingkat, donut kelompok usia */
+(function () {
+  const n   = A.length;
+  const mn  = Math.min(...A.map(a => a[1]));
+  const mx  = Math.max(...A.map(a => a[2]));
+  const yrs = mx - mn + 1;
+  const avg = f => (A.reduce((t, a) => t + f(a), 0) / n).toFixed(1);
+
+  /* kartu ringkas */
+  el("ak").innerHTML = [
+    ["Usia Terendah",         mn + " th",                          "PR Pakunden",       "cpr"],
+    ["Usia Tertinggi",        mx + " th",                          "Pimpinan Cabang",   "cpk"],
+    ["Rata-rata Batas Bawah", avg(a => a[1]) + " th",              "dari " + n + " data", "c0"],
+    ["Rata-rata Batas Atas",  avg(a => a[2]) + " th",              "dari " + n + " data", "c2"],
+    ["Rata-rata Rentang",     avg(a => a[2] - a[1] + 1) + " th",   "lebar rentang usia", "c1"]
+  ].map(s => `<div class="card st ${s[3]}"><span>${s[0]}</span><b style="font-size:1.6rem">${s[1]}</b><span>${s[2]}</span></div>`).join("");
+
+  /* persentase pimpinan yang mencakup tiap usia */
+  let h = "";
+  for (let y = mn; y <= mx; y++) {
+    const c = A.filter(a => a[1] <= y && y <= a[2]).length;
+    const p = pc2(c, n);
+    const warna = p >= 70 ? "#10b981" : p >= 40 ? "#3b82f6" : "#8b5cf6";
+    h += `<div class="kr" style="grid-template-columns:44px 1fr 92px">
+      <span>${y} th</span>
+      <div class="kb"><i style="width:${p}%;background:${warna}"></i></div>
+      <b>${p}% <span class="sub">(${c}/${n})</span></b>
+    </div>`;
+  }
+  el("ah").innerHTML = h;
+
+  /* ringkasan per tingkat */
+  const groups = [
+    ["PR",              a => a[0].startsWith("PR ")],
+    ["PK",              a => a[0].startsWith("PK ")],
+    ["PAC",             a => a[0].startsWith("PAC ")],
+    ["Pimpinan Cabang", a => a[0] == "Pimpinan Cabang"],
+    ["Seluruh",         () => true]
+  ];
+  el("at").className = "mx";
+  el("at").innerHTML =
+    `<thead><tr><th>Tingkat</th><th>Data</th><th>Usia IPNU / IPPNU</th><th>Rata² Rentang</th><th>Cakupan Usia</th></tr></thead><tbody>` +
+    groups.map(([nama, fn]) => {
+      const l = A.filter(fn);
+      const lo = Math.min(...l.map(x => x[1]));
+      const hi = Math.max(...l.map(x => x[2]));
+      const p  = pc2(hi - lo + 1, yrs);
+      const rata = (l.reduce((q, x) => q + x[2] - x[1] + 1, 0) / l.length).toFixed(1);
+      return `<tr>
+        <td style="text-align:left"><b>${nama}</b></td>
+        <td>${l.length}</td>
+        <td>${lo}–${hi} th</td>
+        <td>${rata} th</td>
+        <td style="min-width:130px">
+          <div class="kb" style="display:inline-block;width:70px;vertical-align:middle"><i style="width:${p}%;background:#14b8a6"></i></div>
+          <b>${p}%</b>
+        </td>
+      </tr>`;
+    }).join("") + `</tbody>`;
+
+  /* donut kelompok usia (berdasarkan titik tengah rentang) */
+  const G = [
+    ["13–15", 13, 15, "#14b8a6"],
+    ["16–18", 16, 18, "#3b82f6"],
+    ["19–21", 19, 21, "#8b5cf6"],
+    ["22–24", 22, 24, "#f59e0b"]
+  ];
+  const mid = a => (a[1] + a[2]) / 2;
+  const gc  = G.map(q => A.filter(a => mid(a) >= q[1] && mid(a) < q[2] + 1).length);
+
+  let offset = 0, arcs = "";
+  G.forEach((q, i) => {
+    if (!gc[i]) return;
+    const len = gc[i] / n * 314.16;
+    arcs += `<circle r="50" cx="70" cy="70" fill="none" stroke="${q[3]}" stroke-width="22" stroke-dasharray="${len - 1.5} 314.16" stroke-dashoffset="${-offset}" transform="rotate(-90 70 70)"/>`;
+    offset += len;
+  });
+  el("ad").innerHTML = `
+    <svg viewBox="0 0 140 140" style="width:140px;flex:none">${arcs}
+      <text x="70" y="72" text-anchor="middle" font-size="26" font-weight="800" fill="currentColor">${n}</text>
+      <text x="70" y="88" text-anchor="middle" font-size="9" fill="#888">data usia</text>
+    </svg>
+    <div class="lg">
+      ${G.map((q, i) => `<div><span class="dot" style="background:${q[3]}"></span>${q[0]} th: <b>${gc[i]}</b> (${pc2(gc[i], n)}%)</div>`).join("")}
+      <div class="sub">berdasarkan titik tengah rentang</div>
+    </div>`;
+})();
+
+
+/* =====================================================
+   9. DATA PENGKADERAN
+   ===================================================== */
+
+/* tabel */
+el("kt").innerHTML =
+  `<thead><tr><th>No</th><th>Jenis Pengkaderan</th><th class="n">Jumlah</th><th>Porsi</th><th>Keterangan</th></tr></thead><tbody>` +
+  K.map((r, i) => `<tr>
+    <td>${i + 1}</td>
+    <td><span class="dot" style="background:${r[3]}"></span><b>${r[0]}</b></td>
+    <td class="n"><b>${r[1]}</b></td>
+    <td><div class="kb"><i style="width:${Math.max(r[1] / KT * 100, 2)}%;background:${r[3]}"></i></div></td>
+    <td>${r[2]}</td>
+  </tr>`).join("") +
+  `</tbody><tfoot><tr><td></td><td>Total</td><td class="n">${KT}</td><td></td><td></td></tr></tfoot>`;
+
+/* donut */
+(function () {
+  let offset = 0, arcs = "";
+  K.forEach(r => {
+    const len = r[1] / KT * 314.16;
+    arcs += `<circle r="50" cx="70" cy="70" fill="none" stroke="${r[3]}" stroke-width="22" stroke-dasharray="${Math.max(len - 1, .6)} ${314.16}" stroke-dashoffset="${-offset}" transform="rotate(-90 70 70)"/>`;
+    offset += len;
+  });
+  el("kd").innerHTML = `
+    <svg viewBox="0 0 140 140">${arcs}
+      <text x="70" y="72" text-anchor="middle" font-size="26" font-weight="800" fill="currentColor">${KT}</text>
+      <text x="70" y="88" text-anchor="middle" font-size="9" fill="#888">total kader</text>
+    </svg>
+    <div class="lg">${K.map(r =>
+      `<div><span class="dot" style="background:${r[3]}"></span>${r[0]}: <b>${r[1]}</b> (${(r[1] / KT * 100).toFixed(1)}%)</div>`
+    ).join("")}</div>`;
+})();
+
+/* jenjang lanjutan (tanpa MAKESTA) */
+el("kb").innerHTML = K.slice(1).map(r => `
+  <div class="kr">
+    <span>${r[0]}</span>
+    <div class="kb"><i style="width:${r[1] / 25 * 100}%;background:${r[3]}"></i></div>
+    <b>${r[1]}</b>
+  </div>`).join("");
+
+
+/* =====================================================
+   10. ANIMASI MASUK (scroll reveal & hitung naik)
+   ===================================================== */
+
+/* kartu muncul saat terlihat di layar */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add("go");
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: .1 });
+
+const detail = el("detail");
+document.querySelectorAll(".w .card").forEach(c => {
+  if (c !== detail && detail.contains(c)) return;
+  c.classList.add("rv");
+  c.style.transitionDelay = Math.min([...c.parentNode.children].indexOf(c), 8) * 70 + "ms";
+  io.observe(c);
+});
+
+/* angka pada kartu statistik berhitung naik */
+document.querySelectorAll(".stats .st b").forEach(b => {
+  const v = +b.textContent;
+  if (!Number.isInteger(v)) return;
+  const t0 = performance.now();
+  (function frame(t) {
+    const p = Math.min((t - t0) / 1100, 1);
+    b.textContent = Math.round(v * (1 - Math.pow(1 - p, 3)));
+    if (p < 1) requestAnimationFrame(frame);
+  })(t0);
+});
+</script>
+</body>
+</html>
